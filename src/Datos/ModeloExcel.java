@@ -18,15 +18,15 @@ public class ModeloExcel {
             FileInputStream fls = new FileInputStream(new File(rutaArchivo));
             //Workbook wbo;
             //Determinar si es XLS o XLSX
-            if (rutaArchivo.toLowerCase().endsWith(".xlsx")) {
+            if (rutaArchivo.toLowerCase().endsWith(".xlsx") || rutaArchivo.toLowerCase().endsWith(".xlsm")) {
                 wbo = new XSSFWorkbook(fls);
             } else if (rutaArchivo.toLowerCase().endsWith(".xls")) {
                 wbo = new HSSFWorkbook(fls);
             } else {
-                JOptionPane.showMessageDialog(null, "Formato de archivo no aceptado. Use .xlsx o .xls");
+                JOptionPane.showMessageDialog(null, "Formato de archivo no aceptado. Use .xlsx, .xls o xlsm");
                 fls.close();
             }
-            Sheet hoja = wbo.getSheetAt(0);//Obtener la primera hoja
+            Sheet hoja = wbo.getSheetAt(1);//Obtener la primera hoja
             //Iterator<Row> filaIterator = hoja.iterator();
             //Instanciamos DataFormatter
             //DataFormatter maneja diversas formatos de celda, incluidas fechas y numeros grandes, y los devuelve como cadena formateada.

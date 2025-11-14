@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package Presentacion;
+package main;
 
 import Datos.ConvertirTxt;
 import Datos.DatosEmisor;
@@ -45,18 +45,16 @@ public class Generador extends javax.swing.JFrame {
         txtCarpeta = new javax.swing.JTextField();
         btnArchivo = new javax.swing.JButton();
         btnCarpeta = new javax.swing.JButton();
-        jPanel2 = new javax.swing.JPanel();
-        jLabel4 = new javax.swing.JLabel();
+        btnGenerar = new javax.swing.JButton();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         txtRucDni = new javax.swing.JTextField();
         txtRazonSocial = new javax.swing.JTextField();
         txtNomComercial = new javax.swing.JTextField();
-        btnGenerar = new javax.swing.JButton();
+        jLabel4 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblDatos = new javax.swing.JTable();
-        jLabel8 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -65,18 +63,18 @@ public class Generador extends javax.swing.JFrame {
 
         jLabel1.setFont(new java.awt.Font("Dialog", 1, 36)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("Generador");
-        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 30, 450, -1));
+        jLabel1.setText("Generador de txt");
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 10, 450, -1));
 
         jLabel2.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
-        jLabel2.setText("Ingrese ruta de inicio:");
-        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 90, -1, 30));
+        jLabel2.setText("Ruta de inicio:");
+        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 90, -1, 30));
 
         jLabel3.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         jLabel3.setText("Ruta de salida:");
-        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 140, -1, 30));
-        jPanel1.add(txtArchivo, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 90, 200, -1));
-        jPanel1.add(txtCarpeta, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 140, 200, -1));
+        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 140, -1, 30));
+        jPanel1.add(txtArchivo, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 100, 200, -1));
+        jPanel1.add(txtCarpeta, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 150, 200, -1));
 
         btnArchivo.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         btnArchivo.setText("...");
@@ -85,7 +83,7 @@ public class Generador extends javax.swing.JFrame {
                 btnArchivoActionPerformed(evt);
             }
         });
-        jPanel1.add(btnArchivo, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 90, 50, -1));
+        jPanel1.add(btnArchivo, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 100, 50, -1));
 
         btnCarpeta.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         btnCarpeta.setText("...");
@@ -94,43 +92,39 @@ public class Generador extends javax.swing.JFrame {
                 btnCarpetaActionPerformed(evt);
             }
         });
-        jPanel1.add(btnCarpeta, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 140, 50, 30));
+        jPanel1.add(btnCarpeta, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 150, 50, -1));
 
-        jPanel2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-        jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        jLabel4.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel4.setText("Datos Emisor");
-        jPanel2.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(8, 24, 390, -1));
-
-        jLabel5.setText("RUC:");
-        jPanel2.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 70, -1, 30));
-
-        jLabel6.setText("Razón Social:");
-        jPanel2.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 120, -1, 30));
-
-        jLabel7.setText("Nombre Comercial:");
-        jPanel2.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 170, -1, 30));
-        jPanel2.add(txtRucDni, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 70, 240, -1));
-
-        txtRazonSocial.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtRazonSocialActionPerformed(evt);
-            }
-        });
-        jPanel2.add(txtRazonSocial, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 120, 240, -1));
-        jPanel2.add(txtNomComercial, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 170, 240, -1));
-
-        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 200, 410, 220));
-
+        btnGenerar.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         btnGenerar.setText("Generar");
         btnGenerar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnGenerarActionPerformed(evt);
             }
         });
-        jPanel1.add(btnGenerar, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 440, 120, 30));
+        jPanel1.add(btnGenerar, new org.netbeans.lib.awtextra.AbsoluteConstraints(860, 130, 150, 50));
+
+        jLabel5.setText("RUC:");
+        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 100, -1, 30));
+
+        jLabel6.setText("Razón Social:");
+        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 140, -1, 30));
+
+        jLabel7.setText("Nombre Comercial:");
+        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 180, -1, 30));
+        jPanel1.add(txtRucDni, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 100, 240, -1));
+
+        txtRazonSocial.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtRazonSocialActionPerformed(evt);
+            }
+        });
+        jPanel1.add(txtRazonSocial, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 140, 240, -1));
+        jPanel1.add(txtNomComercial, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 180, 240, -1));
+
+        jLabel4.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel4.setText("Datos");
+        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 70, 390, -1));
 
         tblDatos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -143,14 +137,9 @@ public class Generador extends javax.swing.JFrame {
         tblDatos.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);
         jScrollPane1.setViewportView(tblDatos);
 
-        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 50, 600, 400));
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 260, 1110, 390));
 
-        jLabel8.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel8.setText("Datos del excel ");
-        jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 20, 600, -1));
-
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1140, 490));
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1140, 680));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -159,17 +148,53 @@ public class Generador extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtRazonSocialActionPerformed
 
+    private void btnGenerarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGenerarActionPerformed
+        String rucDni = txtRucDni.getText();
+        String razonSocial = txtRazonSocial.getText();
+        String nameComercial = txtNomComercial.getText();
+
+        //Validacion del DNI y RUC
+        if (rucDni.length()!=8 && rucDni.length()!=11) {//Detener el proceso del metodo actual
+            JOptionPane.showMessageDialog(this, "EL RUC/DNI debe contener exactamente 8 o 11 caracteres");
+            return;//Evita la ejecución o continuación del resto del metodo
+        }
+
+        DatosEmisor dato = new DatosEmisor(rucDni, razonSocial, nameComercial);
+
+        if (carpetaSalida !=null && tblDatos !=null) {//Validar que se selecciono una carpeta y existe la tabla
+            ConvertirTxt genera = new ConvertirTxt();
+            genera.generarTXTTabla(tblDatos, carpetaSalida, dato);
+            JOptionPane.showMessageDialog(this, "Archivos generados exitosamente en la carpeta");
+        }else{
+            JOptionPane.showMessageDialog(this, "Error: Selecionje una carpeta");
+        }
+    }//GEN-LAST:event_btnGenerarActionPerformed
+
+    private void btnCarpetaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCarpetaActionPerformed
+        JFileChooser ruta = new JFileChooser();
+        ruta.setFileSelectionMode(ruta.DIRECTORIES_ONLY);
+        int retornarValor = ruta.showOpenDialog(null);
+
+        if (retornarValor == JFileChooser.APPROVE_OPTION) {
+            carpetaSalida = ruta.getSelectedFile();
+            String nombreCarpeta =  carpetaSalida.getAbsolutePath();
+            txtCarpeta.setText(nombreCarpeta);
+        }else{
+            JOptionPane.showMessageDialog(this, "No selecciono una carpeta");
+        }
+    }//GEN-LAST:event_btnCarpetaActionPerformed
+
     private void btnArchivoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnArchivoActionPerformed
         JFileChooser ch = new JFileChooser();
-        
+
         FileNameExtensionFilter filtroExcel = new FileNameExtensionFilter(
-            "Archivos de Excel (*.xlsx, *.xls)", "xlsx", "xls");
-        
+            "Archivos de Excel (*.xlsx, *.xls, *.xlsm)", "xlsx", "xls","xlsm");
+
         ch.setFileFilter(filtroExcel);
-        ch.setAcceptAllFileFilterUsed(false); 
-        
+        ch.setAcceptAllFileFilterUsed(false);
+
         int retornarValor = ch.showOpenDialog(null);
-        
+
         if (retornarValor == JFileChooser.APPROVE_OPTION) {
             archivo = ch.getSelectedFile();
             String nombreArchivo = archivo.getAbsolutePath();
@@ -180,42 +205,6 @@ public class Generador extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "No seleciono un archivo");
         }
     }//GEN-LAST:event_btnArchivoActionPerformed
-
-    private void btnCarpetaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCarpetaActionPerformed
-        JFileChooser ruta = new JFileChooser();
-        ruta.setFileSelectionMode(ruta.DIRECTORIES_ONLY);
-        int retornarValor = ruta.showOpenDialog(null);
-        
-        if (retornarValor == JFileChooser.APPROVE_OPTION) {
-            carpetaSalida = ruta.getSelectedFile();
-            String nombreCarpeta =  carpetaSalida.getAbsolutePath();
-            txtCarpeta.setText(nombreCarpeta);
-        }else{
-            JOptionPane.showMessageDialog(this, "No selecciono una carpeta");
-        }
-    }//GEN-LAST:event_btnCarpetaActionPerformed
-
-    private void btnGenerarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGenerarActionPerformed
-        String rucDni = txtRucDni.getText();
-        String razonSocial = txtRazonSocial.getText();
-        String nameComercial = txtNomComercial.getText();
-        
-        //Validacion del DNI y RUC
-        if (rucDni.length()!=8 && rucDni.length()!=11) {//Detener el proceso del metodo actual
-            JOptionPane.showMessageDialog(this, "EL RUC/DNI debe contener exactamente 8 o 11 caracteres");
-            return;//Evita la ejecución o continuación del resto del metodo
-        }
-        
-        DatosEmisor dato = new DatosEmisor(rucDni, razonSocial, nameComercial);
-        
-        if (carpetaSalida !=null && tblDatos !=null) {//Validar que se selecciono una carpeta y existe la tabla
-            ConvertirTxt genera = new ConvertirTxt();
-            genera.generarTXTTabla(tblDatos, carpetaSalida, dato);
-            JOptionPane.showMessageDialog(this, "Archivos generados exitosamente en la carpeta");
-        }else{
-            JOptionPane.showMessageDialog(this, "Error: Selecionje una carpeta");
-        }
-    }//GEN-LAST:event_btnGenerarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -268,9 +257,7 @@ public class Generador extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tblDatos;
     private javax.swing.JTextField txtArchivo;

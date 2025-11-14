@@ -1,8 +1,12 @@
 package Datos;
 
 import java.io.*;
+import java.math.BigDecimal;
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
 import java.time.*;
 import java.time.format.DateTimeFormatter;
+import java.util.Locale;
 import javax.swing.*;
 
 public class ConvertirTxt {
@@ -82,6 +86,9 @@ public class ConvertirTxt {
             //Formateamos la hora a un formato legible
             DateTimeFormatter formato = DateTimeFormatter.ofPattern("hh:mm:ss");
             String horaFormateada = horaActual.format(formato);
+            String COD_DETRAC = getValorSeguro(tabla, i, 18);
+            String PORCENTAJE_DETRAC = getValorSeguro(tabla, i, 19);
+            String MONTO_DETRAC = getValorSeguro(tabla, i, 20);
 
             //Logica para construir las lineas del archivo txt
             //Bloque primero, falta el formato de pago que no esta en el cuadro
@@ -126,6 +133,16 @@ public class ConvertirTxt {
             cola.agregarLinea("A2;MontoImpuesto;1;" + IGV);
             cola.agregarLinea("A2;MontoImpuestoBase;1;" + TOT_GRAVADO);
             cola.agregarLinea("A2;TasaImpuesto;1;18");//Por def.
+            cola.agregarLinea("");
+            
+            //Bloque de detraccion si tipo de operación es 1001
+            if (TIPO_OPERACION.equalsIgnoreCase("1001")) {
+                cola.agregarLinea("A3;codiDetraccion;1;"+ COD_DETRAC);//Por def.
+                cola.agregarLinea("A3;valorDetraccion;1;");
+                cola.agregarLinea("A3;MntDetraccion;1;" + MONTO_DETRAC);
+                cola.agregarLinea("A3;PorcentajeDetraccion;1;"+ PORCENTAJE_DETRAC);
+                cola.agregarLinea("");
+            }
             //Si el pago es a credito
             if (FORMAPAGO.equalsIgnoreCase("credito")) {
                  //Parseamos la FECHA_EMISION (String) a un objeto LocalDate
@@ -137,8 +154,9 @@ public class ConvertirTxt {
                 cola.agregarLinea("A5;Cuota;1;1");
                 cola.agregarLinea("A5;MontoCuota;1;"+PAGOPENDIENTE);
                 cola.agregarLinea("A5;FechaVencCuota;1;"+FECHA_VENCIMIENTO);
+                cola.agregarLinea("");
             }
-            cola.agregarLinea("");
+            
 
             //Bloque de los items (Agregar aqui los items, recordar que son 10 items como maximo)
             final int COL_QTY_ITEM_1 = 37;
@@ -153,6 +171,16 @@ public class ConvertirTxt {
             final int COLUMNAS_POR_ITEM_SALTO = 13;
 
             int numeroDeLinea = 1;
+             
+            // Preparamos los formatos una sola vez
+            DecimalFormatSymbols symbols = new DecimalFormatSymbols(Locale.US);
+            // Aseguramos el uso del punto como separador decimal
+            symbols.setDecimalSeparator('.'); 
+    
+            // Formato para 5 decimales (100.00000)
+            DecimalFormat decimalf5 = new DecimalFormat("0.00000", symbols);
+            // Formato para 2 decimales (ej. 123.00)
+            DecimalFormat decimalf2 = new DecimalFormat("0.00", symbols);
 
             for (int j = 0; j < 10; j++) {
 
@@ -173,15 +201,20 @@ public class ConvertirTxt {
                     String unmdItem = "NIU";
                     String codigoTipoIgv = "1000";
                     String tasaIgv = "18";
-
+                    
+                    //Podemos usar .replace(",",".") si el string viene con comas(En ocasiones se usa valores con comoas, por ejemplo: 123,00)
+                    BigDecimal prcItemBd = new BigDecimal(prcItem);
+                    BigDecimal prcSinIgvBd = new BigDecimal(prcSinIgv);
+                    BigDecimal montoItemBd = new BigDecimal(montoItem);
+                    
                     cola.agregarLinea("B;NroLinDet;" + numeroDeLinea + ";" + numeroDeLinea);
                     cola.agregarLinea("B;QtyItem;" + numeroDeLinea + ";" + qtyItem);
                     cola.agregarLinea("B;UnmdItem;" + numeroDeLinea + ";" + unmdItem);
                     cola.agregarLinea("B;VlrCodigo;" + numeroDeLinea + ";" + vlrCodigo);
                     cola.agregarLinea("B;NmbItem;" + numeroDeLinea + ";" + nmbItem);
-                    cola.agregarLinea("B;PrcItem;" + numeroDeLinea + ";" + prcItem);
-                    cola.agregarLinea("B;PrcItemSinIgv;" + numeroDeLinea + ";" + prcSinIgv);
-                    cola.agregarLinea("B;MontoItem;" + numeroDeLinea + ";" + montoItem);
+                    cola.agregarLinea("B;PrcItem;" + numeroDeLinea + ";" + decimalf5.format(prcItemBd));
+                    cola.agregarLinea("B;PrcItemSinIgv;" + numeroDeLinea + ";" + decimalf5.format(prcSinIgvBd));
+                    cola.agregarLinea("B;MontoItem;" + numeroDeLinea + ";" + decimalf2.format(montoItemBd));
                     cola.agregarLinea("B;IndExe;" + numeroDeLinea + ";" + indExe);
                     cola.agregarLinea("B;CodigoTipoIgv;" + numeroDeLinea + ";" + codigoTipoIgv);
                     cola.agregarLinea("B;TasaIgv;" + numeroDeLinea + ";" + tasaIgv);
@@ -194,7 +227,7 @@ public class ConvertirTxt {
                     break;
                 }
             }
-            String rutaArchivo = rutaCarpeta + SERIE + "-" + CORRELATIVO + ".txt";
+            String rutaArchivo = rutaCarpeta + TIPO_DOC + "-" + SERIE + "-" + CORRELATIVO + ".txt";
             ConvertirTxt genera = new ConvertirTxt(rutaArchivo);
             genera.generarTXT(cola);
         }
