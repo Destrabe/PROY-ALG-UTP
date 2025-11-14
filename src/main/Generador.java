@@ -11,19 +11,30 @@ import java.io.*;
 import java.util.logging.*;
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
+
 /**
  *
  * @author USER
  */
 public class Generador extends javax.swing.JFrame {
+
+    // Archivo Excel seleccionado
     File archivo;
+
+    // Carpeta donde se guardarán los archivos generados
     File carpetaSalida;
+
     /**
      * Creates new form Generador
      */
+    /**
+     * Constructor: inicializa la interfaz y configura la tabla
+     */
     public Generador() {
-        initComponents();
-        this.setLocationRelativeTo(null);
+        initComponents(); // Carga los componentes visuales
+        this.setLocationRelativeTo(null); // Centra la ventana en pantalla
+
+        // Configuración de la tabla: solo lectura, sin selección de celdas individuales
         tblDatos.setCellSelectionEnabled(false);
         tblDatos.setDefaultEditor(Object.class, null);
     }
@@ -111,6 +122,12 @@ public class Generador extends javax.swing.JFrame {
 
         jLabel7.setText("Nombre Comercial:");
         jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 180, -1, 30));
+
+        txtRucDni.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtRucDniActionPerformed(evt);
+            }
+        });
         jPanel1.add(txtRucDni, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 100, 240, -1));
 
         txtRazonSocial.addActionListener(new java.awt.event.ActionListener() {
@@ -149,62 +166,76 @@ public class Generador extends javax.swing.JFrame {
     }//GEN-LAST:event_txtRazonSocialActionPerformed
 
     private void btnGenerarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGenerarActionPerformed
+        // Obtener datos del emisor desde los campos de texto
         String rucDni = txtRucDni.getText();
         String razonSocial = txtRazonSocial.getText();
         String nameComercial = txtNomComercial.getText();
 
-        //Validacion del DNI y RUC
-        if (rucDni.length()!=8 && rucDni.length()!=11) {//Detener el proceso del metodo actual
+        // Validar longitud del RUC/DNI (debe ser 8 o 11 caracteres)
+        if (rucDni.length() != 8 && rucDni.length() != 11) {
             JOptionPane.showMessageDialog(this, "EL RUC/DNI debe contener exactamente 8 o 11 caracteres");
-            return;//Evita la ejecución o continuación del resto del metodo
+            return; // Detener ejecución si no cumple
         }
 
+        // Crear objeto con los datos del emisor
         DatosEmisor dato = new DatosEmisor(rucDni, razonSocial, nameComercial);
 
-        if (carpetaSalida !=null && tblDatos !=null) {//Validar que se selecciono una carpeta y existe la tabla
+        // Verificar que se haya seleccionado una carpeta y que la tabla tenga datos
+        if (carpetaSalida != null && tblDatos != null) {
             ConvertirTxt genera = new ConvertirTxt();
-            genera.generarTXTTabla(tblDatos, carpetaSalida, dato);
+            genera.generarTXTTabla(tblDatos, carpetaSalida, dato); // Generar archivos TXT
             JOptionPane.showMessageDialog(this, "Archivos generados exitosamente en la carpeta");
-        }else{
-            JOptionPane.showMessageDialog(this, "Error: Selecionje una carpeta");
+        } else {
+            JOptionPane.showMessageDialog(this, "Error: Seleccione una carpeta");
         }
+
     }//GEN-LAST:event_btnGenerarActionPerformed
 
     private void btnCarpetaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCarpetaActionPerformed
-        JFileChooser ruta = new JFileChooser();
-        ruta.setFileSelectionMode(ruta.DIRECTORIES_ONLY);
-        int retornarValor = ruta.showOpenDialog(null);
+        // Abrir selector de carpetas
+        JFileChooser selector = new JFileChooser();
+        selector.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY); // Solo permite elegir carpetas
 
-        if (retornarValor == JFileChooser.APPROVE_OPTION) {
-            carpetaSalida = ruta.getSelectedFile();
-            String nombreCarpeta =  carpetaSalida.getAbsolutePath();
-            txtCarpeta.setText(nombreCarpeta);
-        }else{
-            JOptionPane.showMessageDialog(this, "No selecciono una carpeta");
+        int resultado = selector.showOpenDialog(null); // Mostrar diálogo
+
+        if (resultado == JFileChooser.APPROVE_OPTION) {
+            // Carpeta seleccionada
+            carpetaSalida = selector.getSelectedFile();
+            txtCarpeta.setText(carpetaSalida.getAbsolutePath()); // Mostrar ruta en el campo de texto
+        } else {
+            JOptionPane.showMessageDialog(this, "No se seleccionó ninguna carpeta");
         }
     }//GEN-LAST:event_btnCarpetaActionPerformed
 
     private void btnArchivoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnArchivoActionPerformed
-        JFileChooser ch = new JFileChooser();
+        // Abrir selector de archivos Excel
+        JFileChooser selector = new JFileChooser();
 
+        // Aplicar filtro para mostrar solo archivos Excel válidos
         FileNameExtensionFilter filtroExcel = new FileNameExtensionFilter(
-            "Archivos de Excel (*.xlsx, *.xls, *.xlsm)", "xlsx", "xls","xlsm");
+                "Archivos de Excel (*.xlsx, *.xls, *.xlsm)", "xlsx", "xls", "xlsm");
+        selector.setFileFilter(filtroExcel);
+        selector.setAcceptAllFileFilterUsed(false); // Desactiva opción "Todos los archivos"
 
-        ch.setFileFilter(filtroExcel);
-        ch.setAcceptAllFileFilterUsed(false);
+        int resultado = selector.showOpenDialog(null); // Mostrar diálogo
 
-        int retornarValor = ch.showOpenDialog(null);
+        if (resultado == JFileChooser.APPROVE_OPTION) {
+            // Archivo seleccionado
+            archivo = selector.getSelectedFile();
+            String rutaArchivo = archivo.getAbsolutePath();
+            txtArchivo.setText(rutaArchivo); // Mostrar ruta en el campo de texto
 
-        if (retornarValor == JFileChooser.APPROVE_OPTION) {
-            archivo = ch.getSelectedFile();
-            String nombreArchivo = archivo.getAbsolutePath();
-            txtArchivo.setText(nombreArchivo);
-            ModeloExcel leer = new ModeloExcel();
-            leer.leerExcel(nombreArchivo, tblDatos);
-        }else{
-            JOptionPane.showMessageDialog(this, "No seleciono un archivo");
+            // Leer contenido del archivo y cargarlo en la tabla
+            ModeloExcel lector = new ModeloExcel();
+            lector.leerExcel(rutaArchivo, tblDatos);
+        } else {
+            JOptionPane.showMessageDialog(this, "No se seleccionó ningún archivo");
         }
     }//GEN-LAST:event_btnArchivoActionPerformed
+
+    private void txtRucDniActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtRucDniActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtRucDniActionPerformed
 
     /**
      * @param args the command line arguments
