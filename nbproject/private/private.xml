@@ -3,11 +3,11 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/JOEL/Desktop/GitHub/PROY-ALG-UTP/src/Datos/ModeloExcel.java</file>
-            <file>file:/C:/Users/JOEL/Desktop/GitHub/PROY-ALG-UTP/src/Datos/ColaArchivo.java</file>
-            <file>file:/C:/Users/JOEL/Desktop/GitHub/PROY-ALG-UTP/src/Datos/DatosEmisor.java</file>
-            <file>file:/C:/Users/JOEL/Desktop/GitHub/PROY-ALG-UTP/src/Datos/ConvertirTxt.java</file>
-            <file>file:/C:/Users/JOEL/Desktop/GitHub/PROY-ALG-UTP/src/main/Generador.java</file>
+            <file>file:/C:/Users/JOEL/Desktop/GitHub/PROY-ALG-UTP/src/datos/InfoEmisor.java</file>
+            <file>file:/C:/Users/JOEL/Desktop/GitHub/PROY-ALG-UTP/src/main/GeneradorTXT.java</file>
+            <file>file:/C:/Users/JOEL/Desktop/GitHub/PROY-ALG-UTP/src/datos/ColaArchivo.java</file>
+            <file>file:/C:/Users/JOEL/Desktop/GitHub/PROY-ALG-UTP/src/datos/LectorExcel.java</file>
+            <file>file:/C:/Users/JOEL/Desktop/GitHub/PROY-ALG-UTP/src/datos/ConvertirTxt.java</file>
         </group>
     </open-files>
 </project-private>

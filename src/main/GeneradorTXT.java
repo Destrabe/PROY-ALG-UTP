@@ -4,9 +4,9 @@
  */
 package main;
 
-import Datos.ConvertirTxt;
-import Datos.DatosEmisor;
-import Datos.ModeloExcel;
+import datos.ConvertirTxt;
+import datos.InfoEmisor;
+import datos.LectorExcel;
 import java.io.*;
 import java.util.logging.*;
 import javax.swing.*;
@@ -16,7 +16,7 @@ import javax.swing.filechooser.FileNameExtensionFilter;
  *
  * @author USER
  */
-public class Generador extends javax.swing.JFrame {
+public class GeneradorTXT extends javax.swing.JFrame {
 
     // Archivo Excel seleccionado
     File archivo;
@@ -30,7 +30,7 @@ public class Generador extends javax.swing.JFrame {
     /**
      * Constructor: inicializa la interfaz y configura la tabla
      */
-    public Generador() {
+    public GeneradorTXT() {
         initComponents(); // Carga los componentes visuales
         this.setLocationRelativeTo(null); // Centra la ventana en pantalla
 
@@ -178,7 +178,7 @@ public class Generador extends javax.swing.JFrame {
         }
 
         // Crear objeto con los datos del emisor
-        DatosEmisor dato = new DatosEmisor(rucDni, razonSocial, nameComercial);
+        InfoEmisor dato = new InfoEmisor(rucDni, razonSocial, nameComercial);
 
         // Verificar que se haya seleccionado una carpeta y que la tabla tenga datos
         if (carpetaSalida != null && tblDatos != null) {
@@ -226,8 +226,8 @@ public class Generador extends javax.swing.JFrame {
             txtArchivo.setText(rutaArchivo); // Mostrar ruta en el campo de texto
 
             // Leer contenido del archivo y cargarlo en la tabla
-            ModeloExcel lector = new ModeloExcel();
-            lector.leerExcel(rutaArchivo, tblDatos);
+            LectorExcel lector = new LectorExcel();
+            lector.cargarExcel(rutaArchivo, tblDatos);
         } else {
             JOptionPane.showMessageDialog(this, "No se seleccionó ningún archivo");
         }
@@ -254,24 +254,25 @@ public class Generador extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Generador.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(GeneradorTXT.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Generador.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(GeneradorTXT.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Generador.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(GeneradorTXT.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Generador.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(GeneradorTXT.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Generador().setVisible(true);
+                new GeneradorTXT().setVisible(true);
                 try {
                     UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
                 } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException ex) {
-                    Logger.getLogger(Generador.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(GeneradorTXT.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
         });
