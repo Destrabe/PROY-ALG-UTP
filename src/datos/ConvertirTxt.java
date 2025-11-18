@@ -9,10 +9,8 @@ import java.time.format.DateTimeFormatter;
 import java.util.Locale;
 import javax.swing.*;
 
-/**
- * Clase para crear archivos TXT desde una JTable.
- * Variables y comentarios adaptados para diferenciar la versión.
- */
+
+ //Clase para crear archivos TXT desde una JTable.
 public class ConvertirTxt {
 
     private String archivoDestino;
