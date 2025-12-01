@@ -19,14 +19,14 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 public class GeneradorTXT extends javax.swing.JFrame {
 
     // Archivo Excel seleccionado
-    File archivo;
+    private File archivo;
 
     // Carpeta donde se guardarán los archivos generados
-    File carpetaSalida;
-
-    /**
-     * Creates new form Generador
-     */
+    private File carpetaSalida;
+    
+    // Contador para facturas y boletas
+    private ConvertirTxt contador = new ConvertirTxt();
+    
     /**
      * Constructor: inicializa la interfaz y configura la tabla
      */
@@ -37,6 +37,11 @@ public class GeneradorTXT extends javax.swing.JFrame {
         // Configuración de la tabla: solo lectura, sin selección de celdas individuales
         tblDatos.setCellSelectionEnabled(false);
         tblDatos.setDefaultEditor(Object.class, null);
+        
+        // Ocultar labels de contadores al inicio
+        lblFacturas.setVisible(false);
+        lblBoletas.setVisible(false);
+        lblTamanio.setVisible(false);
     }
 
     /**
@@ -66,6 +71,9 @@ public class GeneradorTXT extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblDatos = new javax.swing.JTable();
+        lblFacturas = new javax.swing.JLabel();
+        lblBoletas = new javax.swing.JLabel();
+        lblTamanio = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -156,6 +164,15 @@ public class GeneradorTXT extends javax.swing.JFrame {
 
         jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 260, 1110, 390));
 
+        lblFacturas.setText("jLabel8");
+        jPanel1.add(lblFacturas, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 230, -1, -1));
+
+        lblBoletas.setText("jLabel10");
+        jPanel1.add(lblBoletas, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 230, -1, -1));
+
+        lblTamanio.setText("lblTamanio");
+        jPanel1.add(lblTamanio, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 230, -1, -1));
+
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1140, 680));
 
         pack();
@@ -228,11 +245,28 @@ public class GeneradorTXT extends javax.swing.JFrame {
             // Leer contenido del archivo y cargarlo en la tabla
             LectorExcel lector = new LectorExcel();
             lector.cargarExcel(rutaArchivo, tblDatos);
+            
+            actualizarLabels();
         } else {
             JOptionPane.showMessageDialog(this, "No se seleccionó ningún archivo");
         }
     }//GEN-LAST:event_btnArchivoActionPerformed
+    
+      private void actualizarLabels() {
+        if (tblDatos.getModel() != null) {
+            int contFacturas = contador.contarDocumento(tblDatos, "01");
+            int contBoletas = contador.contarDocumento(tblDatos, "03");
 
+            lblFacturas.setText("Total facturas: " + contFacturas);
+            lblBoletas.setText("Total boletas: " + contBoletas);
+            lblTamanio.setText("Cantidad de filas: " + tblDatos.getRowCount());
+
+            lblFacturas.setVisible(true);
+            lblBoletas.setVisible(true);
+            lblTamanio.setVisible(true);
+        }
+    }
+    
     private void txtRucDniActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtRucDniActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtRucDniActionPerformed
@@ -291,6 +325,9 @@ public class GeneradorTXT extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel lblBoletas;
+    private javax.swing.JLabel lblFacturas;
+    private javax.swing.JLabel lblTamanio;
     private javax.swing.JTable tblDatos;
     private javax.swing.JTextField txtArchivo;
     private javax.swing.JTextField txtCarpeta;
