@@ -38,6 +38,8 @@ public class GeneradorTXT extends javax.swing.JFrame {
         lblFacturas.setVisible(false);
         lblBoletas.setVisible(false);
         lblTamanio.setVisible(false);
+        lblDebito.setVisible(false);
+        lblCredito.setVisible(false);
     }
 
     @SuppressWarnings("unchecked")
@@ -65,6 +67,8 @@ public class GeneradorTXT extends javax.swing.JFrame {
         lblFacturas = new javax.swing.JLabel();
         lblBoletas = new javax.swing.JLabel();
         lblTamanio = new javax.swing.JLabel();
+        lblCredito = new javax.swing.JLabel();
+        lblDebito = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -162,7 +166,13 @@ public class GeneradorTXT extends javax.swing.JFrame {
         jPanel1.add(lblBoletas, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 230, -1, -1));
 
         lblTamanio.setText("lblTamanio");
-        jPanel1.add(lblTamanio, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 230, -1, -1));
+        jPanel1.add(lblTamanio, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 230, -1, -1));
+
+        lblCredito.setText("lblCredito");
+        jPanel1.add(lblCredito, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 230, -1, -1));
+
+        lblDebito.setText("jLabel8");
+        jPanel1.add(lblDebito, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 230, -1, -1));
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1140, 680));
 
@@ -247,14 +257,20 @@ public class GeneradorTXT extends javax.swing.JFrame {
         if (tblDatos.getModel() != null) {
             int contFacturas = contador.contarDocumento(tblDatos, "01");
             int contBoletas = contador.contarDocumento(tblDatos, "03");
+            int contDebito = contador.contarDocumento(tblDatos, "08");
+            int contCredito = contador.contarDocumento(tblDatos, "07");
 
             lblFacturas.setText("Total facturas: " + contFacturas);
             lblBoletas.setText("Total boletas: " + contBoletas);
             lblTamanio.setText("Cantidad de filas: " + tblDatos.getRowCount());
+            lblCredito.setText("Notas creditos: " + contCredito);
+            lblDebito.setText("Nota debitos: " + contDebito);
 
             lblFacturas.setVisible(true);
             lblBoletas.setVisible(true);
             lblTamanio.setVisible(true);
+            lblCredito.setVisible(true);
+            lblDebito.setVisible(true);
         }
     }
     
@@ -314,6 +330,8 @@ public class GeneradorTXT extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblBoletas;
+    private javax.swing.JLabel lblCredito;
+    private javax.swing.JLabel lblDebito;
     private javax.swing.JLabel lblFacturas;
     private javax.swing.JLabel lblTamanio;
     private javax.swing.JTable tblDatos;
